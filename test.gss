@@ -1,0 +1,17 @@
+var blue = #99999
+var width = 10
+var red = #9999
+
+.thediv {
+
+   width: $width
+   color: $blue
+   
+}
+
+
+.div2  {
+
+    color: red
+
+}
