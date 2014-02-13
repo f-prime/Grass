@@ -26,10 +26,13 @@ class Grass:
         return data
     
         
-    def run(self):
+    def run(self, file_=None):
 
-
-        grass = sys.argv[1]
+        if file_:
+            grass = file_ #Only if we call it from another program
+        else:
+            grass = sys.argv[1]
+        self.name = grass
         with open(grass, 'rb') as file:
             self.parse(self.simplify(file.readlines())) #Takes the ouput of of simplify() and uses it as an argument for parse() file.readlines() returns a string while still keeping the \n
 
@@ -96,7 +99,7 @@ class Grass:
             self.parse(self.simplify(file.readlines()))
     
     def write(self):
-        name = sys.argv[1].split(".")[0]
+        name = self.name.split(".")[0]
         name += ".css"
         with open(name, 'w') as file:
             file.write(self.out)
