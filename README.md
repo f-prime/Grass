@@ -13,6 +13,8 @@ Examples
 ========
 
 This is an example that includes all the functionality of Grass.
+    
+    import test2.gss
 
     var width = 0
     var red = #FF0000
@@ -23,3 +25,4 @@ This is an example that includes all the functionality of Grass.
         float: left
 
     }
+

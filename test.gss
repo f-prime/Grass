@@ -1,3 +1,5 @@
+import test2.gss
+
 var blue = #99999
 var width = 10
 var red = #9999
