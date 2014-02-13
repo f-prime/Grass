@@ -75,7 +75,10 @@ class Grass:
             
             if var in self.variables:
                 line = line.replace(x, self.variables[var])
-        
+            
+            else:
+                print "Variable Error: {0} has not been declared".format(x)
+                sys.exit()
         return line
 
     def comment(self, line):
