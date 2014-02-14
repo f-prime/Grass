@@ -1,0 +1,12 @@
+var width = 100px
+
+nav {
+  
+  width: $width;
+  div {
+ 
+      height: $width;
+ 
+  }
+
+}

@@ -20,9 +20,12 @@ This is an example that includes all the functionality of Grass.
     var red = #FF0000
     .someDiv {
 
-        width: $width
-        color: $red
-        float: left
-
+        width: $width;
+        color: $red;
+        float: left;
+        li {
+    
+            color: #000; // Some nested div
+        }
     }
 

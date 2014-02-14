@@ -1,6 +1,8 @@
 import sys
 import re
 
+__version__ = "0.1.0"
+
 class Grass:
 
     def __init__(self):
@@ -34,10 +36,45 @@ class Grass:
             grass = sys.argv[1]
         self.name = grass
         with open(grass, 'rb') as file:
-            self.parse(self.simplify(file.readlines())) #Takes the ouput of of simplify() and uses it as an argument for parse() file.readlines() returns a string while still keeping the \n
+            data = self.unnest(self.simplify(file.readlines()))
+        self.parse(data) #Takes the ouput of of simplify() and uses it as an argument for parse() file.readlines() returns a string while still keeping the \n
 
         self.write() #Write the output after everything is done
-
+    
+    def unnest(self, data):
+        for num, x in enumerate(data):
+            if x == "":
+                data[num] = " "
+        nest = 0
+        code = {}
+        output = []
+        for x in data:
+            if "{" in x:
+                nest += 1
+            
+            if nest not in code:
+                code[nest] = x
+            else:
+                code[nest] += x
+        
+            if "}" in x:
+                nest -= 1
+        for x in code:
+            out = code[x]
+            if x > 1:
+                length = x
+                while True:
+                    get_pre = code[length].replace(" ", '').split("{")[0]
+                    if get_pre in out:
+                        pass
+                    else:
+                        out = get_pre +" "+ out
+                    if length == 1:
+                        break
+                    length -= 1
+            output.append(out)
+        return output
+    
     def parse(self, data):
         
         """
@@ -64,10 +101,6 @@ class Grass:
                 if token in line:
                     line = self.inline_tokens[token](line)        
             
-            
-            if ":" in line and not line.endswith(";"):
-                line = line+";" #This is because GRASS does not require semicolons, but CSS does so we have to add them if they aren't there already.
-        
             self.out += line #Now we append it to the global output 
     
     def variable(self, line):

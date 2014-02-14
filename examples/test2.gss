@@ -2,6 +2,6 @@ var dog = 1
 
 .importMe {
   
-    width: $dog
+    width: $dog;
 
 }

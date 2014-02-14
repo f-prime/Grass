@@ -6,14 +6,14 @@ var red = #9999
 
 .thediv {
 
-   width: $width // An inline comment
-   color: $blue
+   width: $width; // An inline comment
+   color: $blue;
    
 }
 
 
 .div2  {
 
-    color: red
+    color: red;
 
 }
