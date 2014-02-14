@@ -24,7 +24,8 @@ class Grass:
             x = filter(None, x.split()) 
             x = ' '.join(x)
             data[num] = x
-    
+        if not data[0]:
+            data.pop(0)
         return data
     
         
@@ -53,9 +54,9 @@ class Grass:
                 nest += 1
             
             if nest not in code:
-                code[nest] = x
+                code[nest] = x+"\n"
             else:
-                code[nest] += x
+                code[nest] += x+"\n"
         
             if "}" in x:
                 nest -= 1
@@ -72,11 +73,11 @@ class Grass:
                     if length == 1:
                         break
                     length -= 1
-            output.append(out)
+            for x in out.split("\n"):
+                output.append(x)
         return output
     
     def parse(self, data):
-        
         """
 
             There are two types of tokens that the parser looks for, inline tokens and regular tokens. Inline tokens are tokens such as $ and // that are not normally in CSS and aren't their own lines.
@@ -129,7 +130,7 @@ class Grass:
     def import_(self, line):
         line = line.split()
         with open(line[1], 'r') as file:
-            self.parse(self.simplify(file.readlines()))
+            self.parse(self.unnest(self.simplify(file.readlines())))
     
     def write(self):
         name = self.name.split(".")[0]
