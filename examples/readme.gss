@@ -1,0 +1,15 @@
+import test.gss
+
+var red = #FF0000
+var wid = 0
+
+.someDiv {
+
+    width: $wid;
+    color: $red;
+    float: left;
+    li {
+
+        color: #000; // Some nested div
+    }
+}
