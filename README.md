@@ -1,7 +1,7 @@
 About
 =====
 
-Grass is a small script for making the writing of CSS simpler by adding basic variables, and removing the requirement of semi-colons. 
+Grass is an extension to CSS that allows for things such as variables, nesting, and importing of other style sheets making the web design process much more enjoyable.
 
 Usage
 =====
