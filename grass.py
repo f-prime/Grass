@@ -1,7 +1,7 @@
 import sys
 import re
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 class Grass:
 
@@ -125,7 +125,7 @@ class Grass:
     def var(self, line):
         line = line.replace("var", '').replace(" ", '')
         line = line.split("=")
-        self.variables[line[0]] = line[1]
+        self.variables[line[0]] = self.variable(line[1])
 
     def import_(self, line):
         line = line.split()

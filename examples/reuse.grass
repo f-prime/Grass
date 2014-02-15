@@ -1,0 +1,15 @@
+var width = 10px
+var do_not_repeat_yourself = -webkit-box-sizing:border-box;-moz-box-sizing:border-box;-o-box-sizing:border-box;box-sizing:border-box;width:$width;
+
+.someDiv {
+
+    $do_not_repeat_yourself
+
+} 
+
+
+.someOtherDiv {
+
+    $do_not_repeat_yourself
+
+}
