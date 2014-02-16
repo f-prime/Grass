@@ -1,0 +1,33 @@
+import test.gss
+
+var large = 15
+var small = 10
+var even_smaller = 5px
+
+nav {
+  .div1 { 
+     width: $large; 
+    }
+  
+  .div2 {
+    
+        width: $small;
+        .span1 {
+
+            width: $even_smaller;
+
+        }
+
+        .span2 {
+
+            position: absolute;
+            top: 15;        
+
+        }
+  }
+ 
+  .div3 {
+     width:4;
+  }
+
+}
