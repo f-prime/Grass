@@ -49,32 +49,38 @@ class Grass:
         nest = 0
         code = {}
         output = []
+        prev = []
         for x in data:
             if "{" in x:
+                prev_ = re.findall("([-!$%^&*()_+|~=`{}\[\]:\";'<>?,.\/a-zA-Z0-9_]*){", x.replace(" ",''))[0]
+                x = x.replace(prev_, '') 
+                if nest != len(prev):
+                    prev.append(prev_)
+                elif nest > len(prev) and len(prev) != 0:
+                    prev.pop(nest-1)
+                    prev.append(prev_)
+                else:
+                    prev.append(prev_)
                 nest += 1
             
             if nest not in code:
-                code[nest] = x+"\n"
+                if "{" not in x:
+                    code[nest] = x+"\n"
+                else:
+                    code[nest] = " ".join(prev) + " "+x+"\n"
             else:
-                code[nest] += x+"\n"
-        
+                if "{" not in x:
+                    code[nest] += x+"\n"
+                else:
+                    code[nest] += " ".join(prev) + " "+x+"\n"
             if "}" in x:
                 nest -= 1
+                if len(prev) > nest:
+                    prev.pop(nest)
+    
         for x in code:
-            out = code[x]
-            if x > 1:
-                length = x
-                while True:
-                    get_pre = code[length].replace(" ", '').split("{")[0]
-                    if get_pre in out:
-                        pass
-                    else:
-                        out = get_pre +" "+ out
-                    if length == 1:
-                        break
-                    length -= 1
-            for x in out.split("\n"):
-                output.append(x)
+            output.append(code[x].replace("\n",''))
+    
         return output
     
     def parse(self, data):
