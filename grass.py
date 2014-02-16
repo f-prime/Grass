@@ -37,8 +37,10 @@ class Grass:
             grass = sys.argv[1]
         self.name = grass
         with open(grass, 'rb') as file:
-            data = self.unnest(self.simplify(file.readlines()))
-        self.parse(data) #Takes the ouput of of simplify() and uses it as an argument for parse() file.readlines() returns a string while still keeping the \n
+            data = self.simplify(file.readlines())
+        
+        data = self.preparse(data)
+        self.parse(self.unnest(data)) #Takes the ouput of of simplify() and uses it as an argument for parse() file.readlines() returns a string while still keeping the \n
 
         self.write() #Write the output after everything is done
     
@@ -76,13 +78,24 @@ class Grass:
             if "}" in x:
                 nest -= 1
                 if len(prev) > nest:
-                    prev.pop(nest)
-    
+                    prev.pop(nest) 
         for x in code:
             output.append(code[x].replace("\n",''))
-    
+        output.append("}") 
         return output
     
+    def preparse(self, data):
+        out = []
+        for line in data:
+            check = line.split()
+            if not check:
+                continue
+            if check[0] in self.tokens:
+                self.tokens[check[0]](line)
+                continue
+            out.append(line)
+        return out
+
     def parse(self, data):
         """
 
@@ -98,10 +111,6 @@ class Grass:
         for line in data:
             check = line.split()
             if not check:
-                continue
-
-            if check[0] in self.tokens:
-                self.tokens[check[0]](line)
                 continue
 
             for token in self.inline_tokens:
@@ -136,13 +145,14 @@ class Grass:
     def import_(self, line):
         line = line.split()
         with open(line[1], 'r') as file:
-            self.parse(self.unnest(self.simplify(file.readlines())))
-    
+            data = self.simplify(file.readlines())
+            data = self.preparse(data)
+            self.parse(self.unnest(data))
     def write(self):
         name = self.name.split(".")[0]
         name += ".css"
         with open(name, 'w') as file:
-            file.write(self.out)
+            file.write(self.out.replace("}}", '}')) #Just incase there is a double up of curly braces
 
 if __name__ == "__main__":
     Grass = Grass()
